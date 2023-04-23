@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "CustomFont";
+  src: url("./Daydream.ttf");
+  }
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'CustomFont';
+}
+.sand {
+  width: 100vw;
+  min-height: 100vh;
+  background: url(./city.jpg) repeat-x, url(./sand2.jpg);
+  background-size: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.container {
+  background-color: rgba(27, 23, 23, 0.262);
+  backdrop-filter: blur(7px);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+h1 {
+  color:rgb(255, 255, 255);
+}
+
+
+.space {
+  padding-top: 12%;
+}
+
