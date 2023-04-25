@@ -18,19 +18,214 @@
   z-index: 0;
 }
 
+#root {
+  padding-top: 15px;
+}
+
+.teste {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
 .container {
-  background-color: rgba(27, 23, 23, 0.262);
-  backdrop-filter: blur(7px);
+  width: 444px;
+  max-height: 235px;
+  background-color: rgba(255, 255, 255, 0.262);
   padding: 15px;
+  display: flex;
   border-radius: 15px;
 }
 
 h1 {
   color:rgb(255, 255, 255);
+  text-align: center;
+  font-size: 50px;
 }
 
+.tt {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
 
 .space {
   padding-top: 12%;
 }
+
+.AddForm {
+  width: 500px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+input {
+  width: 94.3%;
+  position: relative;
+  border-radius: 12px;
+  border: none;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+form {
+  align-items: center;
+  display: inline;
+}
+
+.btnsub {
+  width: 100%;
+  display: flex;
+  border: none;
+  padding: 12px;
+  border-radius: 15px;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  color: rgb(184, 131, 184);
+  background-color: white;
+  transition: all 1s;
+}
+
+.btnsub:hover {
+  background-color: rgb(184, 131, 184);
+  color: white;
+  -webkit-box-shadow: 0px 0px 29px 11px rgb(184, 131, 184);
+  -moz-box-shadow: 0px 0px 29px 11px rgb(255, 255, 255);
+  box-shadow: 0px 0px 29px 11px rgb(255, 255, 255);
+}
+
+.InputSw {
+  font-size: 14px;
+  padding: 8px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  background-color: white;
+  position: relative;
+  border-radius: 12px;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.switche {
+  display: inline-flex !important;
+}
+
+
+.table {
+  background-color: rgba(255, 255, 255, 0.262);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  padding: 17px;
+  max-height: 550px;
+  overflow-y: scroll;
+}
+
+.container-table {
+  padding-left: 10px;
+  max-width: 1000px;
+  min-width: 1000px;
+}
+
+.stodo {
+  width: 90%;
+  background-color: white;
+  padding: 14px;
+  margin: 5px;
+  border-radius: 12px;
+  overflow-x: auto;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  overflow: scroll;
+  max-width: 65%;
+  align-items: center;
+}
+
+.group {
+  align-items: center;
+  width: 35%;
+  justify-content: space-around;
+  display: flex;
+}
+
+body {
+  scrollbar-color: rgb(184, 131, 184) white;
+  scrollbar-width: thin;
+}
+
+.iconn {
+  font-size: 21px;
+  align-items: center;
+  display: flex;
+}
+
+.fa-check {
+    font-weight: 900;
+    color: rgb(51, 255, 0);
+}
+
+.fa-times {
+  color: rgb(255, 0, 0);
+}
+
+.btnedit {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(119, 67, 231);
+  border: none;
+  min-height: 50px;
+  min-width: 50px;
+  border-radius: 9px;
+  margin-left: 6px;
+  margin-right: 6px;
+  transition: all 1s;
+}
+
+.btnedit:hover {
+  background-color: rgb(226, 67, 231);
+  -webkit-box-shadow: 0px 0px 29px 11px rgb(226, 67, 231);
+  -moz-box-shadow: 0px 0px 29px 11px rgb(226, 67, 231);
+  box-shadow: 0px 0px 29px 11px rgb(226, 67, 231);
+}
+
+.btndelete {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 0, 0);
+  border: none;
+  min-height: 50px;
+  min-width: 50px;
+  border-radius: 9px;
+  transition: all 1s;
+}
+
+.btndelete:hover {
+  color: red;
+  background-color: rgb(255, 255, 255);
+  -webkit-box-shadow: 0px 0px 29px 11px rgb(255, 255, 255);
+  -moz-box-shadow: 0px 0px 29px 11px rgb(255, 255, 255);
+  box-shadow: 0px 0px 29px 11px rgb(255, 255, 255);
+}
+
+.mco {
+  display: flex;
+  align-items: center;
+}
+
+
 

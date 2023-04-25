@@ -2,4 +2,4 @@ package com.rui.todo;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoRepository<User,String>{}
+public interface TodoRepository extends MongoRepository<Todo,String>{}

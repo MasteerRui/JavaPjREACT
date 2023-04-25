@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-public class UserController {
+public class TodoController {
     @Autowired
-    private UserRepository userRepository;
+    private TodoRepository todoRepository;
 
     @GetMapping("/")
-    public List<User> GetUsers() {
-        return userRepository.findAll();
+    public List<Todo> GetTodos() {
+        return todoRepository.findAll();
     }
     @GetMapping("/{id}")
-    public User GetUser(@PathVariable String id) {
-        return userRepository.findById(id).orElse(null);
+    public Todo GetTodo(@PathVariable String id) {
+        return todoRepository.findById(id).orElse(null);
     }
     @PostMapping("/")
-    public User postMethodName(@RequestBody User user) {
-        return userRepository.save(user);
+    public Todo postMethodName(@RequestBody Todo todo) {
+        return todoRepository.save(todo);
     }
     @PutMapping("/")
-    public User PutMapping(@RequestBody User newUser) {
-        User oldUser = userRepository.findById(newUser.getId()).orElse(null);
-        oldUser.setName(newUser.getName());
-        oldUser.setEmail(newUser.getEmail());
-        oldUser.setPassword(newUser.getPassword());
-        userRepository.save(oldUser);
-        return oldUser;
+    public Todo PutMapping(@RequestBody Todo newTodo) {
+        Todo oldTodo = todoRepository.findById(newTodo.getId()).orElse(null);
+        oldTodo.setName(newTodo.getName());
+        oldTodo.setDate(newTodo.getDate());
+        oldTodo.setFeito(newTodo.getFeito());
+        todoRepository.save(oldTodo);
+        return oldTodo;
     }
     @DeleteMapping("/{id}")
-    public String DeleteUser(@PathVariable String id) {
-        userRepository.deleteById(id);
+    public String DeleteTodo(@PathVariable String id) {
+        todoRepository.deleteById(id);
         return id;
     }
 }

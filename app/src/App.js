@@ -1,25 +1,44 @@
 import React from 'react';
 import axios from 'axios';
+import Switch from "react-switch";
+import DatePicker from 'react-datepicker';  
+import "react-datepicker/dist/react-datepicker.css";  
+
+
 class  App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users:[],
+      todos:[],
       id:0,
       Name:'',
-      Email:'',
-      Password:''
+      feito: false,
+      date: new Date(),  
+      btnname: 'Adicionar'
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
   }
+
+  handleChange(feito) {
+    this.setState({ feito });
+  }
+
+  handleChange2(date) {  
+    this.setState({ date })  
+  }  
+
   componentDidMount(){
     axios.get("http://localhost:8080/api/")
     .then((res)=>{
       this.setState({
-        users:res.data,
+        todos:res.data,
         id:0,
         name:'',
-        email:'',
-        password:''
+        feito: false,
+        date: new Date(),
+        btnname: 'Adicionar'  
       })
     })
   }
@@ -29,8 +48,8 @@ class  App extends React.Component {
     if(id===0){
       axios.post("http://localhost:8080/api/",{
         name:this.state.name,
-        email:this.state.email,
-        password:this.state.password
+        date:this.state.date,
+        feito:this.state.feito
       }).then(()=>{
         this.componentDidMount();
       })
@@ -38,8 +57,8 @@ class  App extends React.Component {
       axios.put("http://localhost:8080/api/",{
         id:id,
         name:this.state.name,
-        email:this.state.email,
-        password:this.state.password
+        date:this.state.date,
+        feito:this.state.feito
       }).then(()=>{
         this.componentDidMount();
       })
@@ -51,86 +70,91 @@ class  App extends React.Component {
       this.componentDidMount();
     })
   }
-  edit(id){
+  edit(id) {
     axios.get("http://localhost:8080/api/"+id)
-    .then((res)=>{
-      this.setState({
-        id:res.data.id,
-        name:res.data.name,
-        email:res.data.email,
-        password:res.data.password
-      });
-    }) 
+      .then((res)=>{
+        const formattedDate = new Date(res.data.date);
+        this.setState({
+          id: res.data.id,
+          name: res.data.name,
+          date: formattedDate,
+          feito: res.data.feito,
+          btnname: 'Editar'
+        });
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
   }
+  
+  
+  
+
+
   render(){
     return (
+      <div className='main'>
+        <div className='teste'>
       <div className="container">
-          <h1>Todo List Java</h1>
-         <div className="row">
-         <div className="">
-                 <form onSubmit={(e)=>this.submit(e,this.state.id)}>
-                 <div className="input-field col s12">
-                    <i className="material-icons prefix">person</i>
-                    <input value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})} type="text" id="autocomplete-input" className="autocomplete"  />
-                    <label htmlFor="autocomplete-input">Enter Name</label>
-                  </div>
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">mail</i>
-                    <input value={this.state.email} onChange={(e)=>this.setState({email:e.target.value})} type="email" id="autocomplete-input" className="autocomplete"  />
-                    <label htmlFor="autocomplete-input">Enter Email</label>
-                  </div>
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">vpn_key</i>
-                    <input value={this.state.password} onChange={(e)=>this.setState({password:e.target.value})} type="password" id="autocomplete-input" className="autocomplete"  />
-                    <label htmlFor="autocomplete-input">Enter Password</label>
-                  </div>
-                  <button className="btn waves-effect waves-light right" type="submit" name="action">Submit
-                    <i className="material-icons right">send</i>
-                  </button>
-                 </form>
-          </div>          
-          <div>
-          <table>
-        <thead>
-          <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Edit</th>
-              <th>Delete</th>
-          </tr>
-        </thead>
+        <div className="AddForm">
+          <form onSubmit={(e) => this.submit(e, this.state.id)}>
+            <div className="input-field col s12">
+              <input placeholder='Tarefa' value={this.state.name} onChange={(e) => this.setState({ name: e.target.value })} type="text" className="autocomplete" />
+            </div>
+            <DatePicker className='date'
+              value={this.state.date}
+              selected={this.state.date}
+              onChange={this.handleChange2}
+              name="date"
+              dateFormat="dd/MM/yyyy" />      
+              <div className='InputSw'>
+                <a>Feito</a>
+              <Switch onColor='#B883B8' className='switche' onChange={this.handleChange} checked={this.state.feito} value={this.state.feito} />
+            </div>
+            <button className="btnsub" type="submit" name="action">{this.state.btnname}
+            </button>
+          </form>
+        </div>
+        
+        </div>
+        <div className='container-table'>
+<div className='table'>
+    {
+    
+      this.state.todos.map(todo =>
+        <div className='mco'>
+          <div className='stodo' key={todo.id}>
+          <a className='name'>{todo.name}</a>
+          <div className='group'> 
+          <a>{new Date(todo.date).toLocaleDateString()}</a>
+              <div className='iconn'> {todo.feito === true ? <i class="fa fa-check"></i> : <i class="fa fa-times"> </i>}</div>
+              </div>
+          </div>
+          <a>
+                <button onClick={(e)=>this.edit(todo.id)} className="btnedit" type="submit" name="action">
+                  <i className="material-icons ">edit</i>
+                </button>       
+              </a>
+              <a>
+                <button onClick={(e)=>this.delete(todo.id)} className="btndelete" type="submit" name="action">
+                  <i className="material-icons ">delete</i>
+                </button>       
+              </a>
+          </div>
+        
+        )
+    }
 
-        <tbody className='effect' data-tilt data-tilt-scale="1.1">
-            {
-            
-              this.state.users.map(user =>
-                  <tr key={user.id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.password}</td>
-                      <td>
-                        <button onClick={(e)=>this.edit(user.id)} className="btn waves-effect waves-light" type="submit" name="action">
-                          <i className="material-icons ">edit</i>
-                        </button>       
-                      </td>
-                      <td>
-                        <button onClick={(e)=>this.delete(user.id)} className="btn waves-effect waves-light " type="submit" name="action">
-                          <i className="material-icons ">delete</i>
-                        </button>       
-                      </td>
-                  </tr>
-                
-                )
-            }
+</div>
+</div>
+        </div>
 
-        </tbody>
-      </table>
-          </div>                
-          </div>              
-      </div>
+        <div>
+        </div>
+        </div>
     );
   }
 }
+
 
 export default App;
